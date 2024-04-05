@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>지뢰찾기</title>
+    <style>
+        :root {
+            --light-bg-color: rgb(245, 242, 242);
+            --light-text-color: black;
+            --dark-bg-color: #1f1f1f;
+            --dark-text-color: white;
+        }
+
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light-bg-color);
+            color: var(--light-text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dark-theme {
+            background-color: var(--dark-bg-color);
+            color: var(--dark-text-color);
+        }
+
+        table,
+        tr,
+        td {
+            border: 1px solid #888;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        tr,
+        td {
+            width: 30px;
+            height: 30px;
+            border-radius: 10%;
+        }
+
+        .gameSet {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border: 3px solid black;
+            border-radius: 10px;
+        }
+
+        input {
+            width: 300px;
+            height: 50px;
+            text-align: center;
+            font-size: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 2px solid black;
+        }
+
+        button {
+            height: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 10px;
+            border: 2px solid black;
+            background-color: darkcyan;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        input:focus,
+        button:focus {
+            outline: none;
+        }
+
+        input:focus::placeholder {
+            color: #ffffff;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="containe">
+        <h1>지뢰찾기</h1>
+        <div class="gameSet">
+            <input type="number" id="row" placeholder="가로">
+            <input type="number" id="col" placeholder="세로">
+            <input type="number" id="mineNum" placeholder="지뢰 개수">
+            <button id="startBtn">게임 시작</button>
+            <br>
+            <button id="themeBtn">테마 변경</button>
+        </div>
+        <div id="gameBoard"></div>
+    <script src="ge.js"></script>
+    <script src="theme.js"></script>
+</body>
+</html>
