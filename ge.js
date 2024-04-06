@@ -3,11 +3,16 @@ const tdArr = document.getElementsByTagName("td");
 const COLOR = ["red", "skyblue", "olive", "green", "blue", "purple", "brown", "black"];
 let row;
 let col;
+let totalMines;
 
-startBtn.addEventListener("click", setGame);
+startBtn.addEventListener("click", startGame);
 window.addEventListener("contextmenu", function (e) {
   e.preventDefault();
 });
+
+function startGame() {
+  setGame();
+}
 
 function setGame() {
   const gameSet = document.querySelector(".gameSet");
@@ -16,12 +21,11 @@ function setGame() {
   row = parseInt(document.getElementById("row").value);
   col = parseInt(document.getElementById("col").value);
   const mineNum = parseInt(document.getElementById("mineNum").value);
+  totalMines = mineNum;
   const mineArr = setMineNumArr(mineNum, row * col);
 
   makeBoard(row, col);
   putMineInBoard(mineArr);
-
-
 
   for (let i = 0; i < tdArr.length; i++) {
     tileEvent(i, getAroundArr(i));
@@ -40,7 +44,6 @@ function getAroundArr(num) {
   return [num - row - 1, num - row, num - row + 1, num - 1, num + 1, num + row - 1, num + row, num + row + 1];
 }
 
-
 function makeBoard(rowNum, colNum) {
   let tableEle = "<table>";
 
@@ -55,7 +58,6 @@ function makeBoard(rowNum, colNum) {
   document.getElementById("gameBoard").innerHTML = tableEle;
 }
 
-
 function setMineNumArr(numLimit, numRange) {
   let mineArr = [];
   for (let i = 0; i < numLimit; i++) {
@@ -68,7 +70,6 @@ function setMineNumArr(numLimit, numRange) {
   }
   return mineArr;
 }
-
 
 function putMineInBoard(mine) {
   for (let i = 0; i < tdArr.length; i++) {
@@ -107,8 +108,25 @@ function clickTile(targetNum, aroundArr) {
       targetTile.textContent = count;
     }
   }
+  checkWin();
 }
 
+function checkWin() {
+  let flagCount = 0;
+  let foundMines = 0;
+  for (let i = 0; i < tdArr.length; i++) {
+    if (tdArr[i].classList.contains("flag")) {
+      flagCount++;
+      if (tdArr[i].classList.contains("mine")) {
+        foundMines++;
+      }
+    }
+  }
+  if (foundMines === totalMines && flagCount === totalMines) {
+    alert("클리어");
+    window.location.reload();
+  }
+}
 
 function tileEvent(targetNum, aroundArr) {
   tdArr[targetNum].addEventListener("click", function () {
