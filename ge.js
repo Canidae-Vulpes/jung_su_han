@@ -21,6 +21,13 @@ function setGame() {
   row = parseInt(document.getElementById("row").value);
   col = parseInt(document.getElementById("col").value);
   const mineNum = parseInt(document.getElementById("mineNum").value);
+
+  if (mineNum >= row * col) {
+    window.location.reload();
+    alert("지뢰가 너무 많음");
+    return; 
+  }
+
   totalMines = mineNum;
   const mineArr = setMineNumArr(mineNum, row * col);
 
